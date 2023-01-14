@@ -4,24 +4,57 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 $(function () {
-  
+  var currentHour = dayjs().hour();
   var formatDate = dayjs().format('DD/MM/YYYY ha')
   var currentDate = $("#currentDay")
   currentDate.text(formatDate)
   var container = $("#timeBlockContainer")
 
-for (var i = 9; i < 17; i++){
-  
-var createDiv = $(' <div class="row time-block></div>')
-var time = $('<p> class="col-2 col-md-1 hour text-center py-3"></p>')
-var textArea = $('<textarea class="col-8 col-md-10 description" rows="3"> </textarea>')
-var button = $('<button class="btn saveBtn col-2 col-md-1" aria-label="save"><i class="fas fa-save" aria-hidden="true"></i></button>')
+  console.log(currentHour)
 
-time.text(i)
-createDiv.append(time, textArea, button)
-container.append(createDiv)
-console.log("hello")
-}
+  for (var i = 9; i < 17; i++) {
+
+    let createDiv = $(' <div class="row time-block"></div>')
+    let time = $('<p class="col-2 col-md-1 hour text-center py-3"></p>')
+    let textArea = $('<textarea class="col-8 col-md-10 description" rows="3"> </textarea>')
+    let button = $('<button class="btn saveBtn col-2 col-md-1" aria-label="save"><i class="fas fa-save" aria-hidden="true"></i></button>')
+
+    let formatTime;
+    if (i < 12){
+      formatTime = i + "am"
+    } else if (i > 12){
+      formatTime = (i - 12) + "pm"
+    } else {
+      formatTime = i + "pm"
+    }
+
+    time.text(formatTime)
+    createDiv.append(time, textArea, button);
+    container.append(createDiv);
+
+    if (currentHour === i) {
+      createDiv.addClass("present");
+    } else if (currentHour > i) {
+      createDiv.addClass("past");
+    } else{
+    createDiv.addClass("future");
+    
+    }
+
+    button.on("click", function(event){
+      
+      var textToSave = button.siblings()[1].value; 
+      localStorage.setItem(formatTime, textToSave);
+      console.log(textToSave);
+      textToSave.textContent();
+    })
+  }
+
+
+
+
+});
+
 
 
 
@@ -48,4 +81,6 @@ console.log("hello")
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
-});
+
+
+
