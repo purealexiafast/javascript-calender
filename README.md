@@ -8,7 +8,7 @@ This challenge was to create a calendar where the user can save their input for 
 
 ### View screenshot below
 
-<img src="./Assets/calendar-pic.jpg" alt="Calendar Picture">
+<img src="calendar-pic.jpg" alt="Calendar Picture">
 
 ### View link to deployed website below
 
